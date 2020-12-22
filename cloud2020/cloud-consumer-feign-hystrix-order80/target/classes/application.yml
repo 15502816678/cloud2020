@@ -1,0 +1,28 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-order-hystrix-service
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+      config:
+        default:
+          connectTimeout: 5000 # feign 的超时设置
+          readTimeout: 5000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000 # 设置hystrix的超时时间为3000ms, 之后才调用降级方法
